@@ -1,26 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./card.css";
 
-function Card({ title, photo, uName, uEmail, postCom }) {
+function Card({ title, uName, uEmail, idofPosts }) {
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
+
   const [comments, setComments] = useState([]);
+  const [photos, setPhotos] = useState([]);
+
+  const firstLetter = uName.charAt(0);
 
   function handleLike() {
     setIsLiked(true);
   }
-
   function handleUnlike() {
     setIsLiked(false);
   }
 
   async function fetchComments() {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/posts/${postCom.postId}/comments`
+    const resCom = await fetch(
+      `https://jsonplaceholder.typicode.com/comments?postId=${idofPosts}`
     );
-    const data = await response.json();
-    setComments(data);
+    const dataCom = await resCom.json();
+    setComments(dataCom);
   }
+  async function fetchPhotos() {
+    const resPhoto = await fetch(
+      `https://jsonplaceholder.typicode.com/photos?id=${idofPosts}`
+    );
+    const dataPhoto = await resPhoto.json();
+    setPhotos(dataPhoto);
+  }
+
+  useEffect(() => {
+    fetchPhotos();
+  }, []);
 
   function toggleComments() {
     if (showComments) {
@@ -35,9 +49,14 @@ function Card({ title, photo, uName, uEmail, postCom }) {
     <div className="container">
       <div>
         <div className="left">
-          <div>
-            <img id="picture" src={photo}></img>
+          <div className="profile-photo" data-initial={firstLetter}>
+            <img
+              id="picture"
+              src={photos.map((p) => p.url)}
+              alt="profile-foto"
+            ></img>
           </div>
+
           <div>
             <h3>{uName}</h3>
           </div>
@@ -58,6 +77,7 @@ function Card({ title, photo, uName, uEmail, postCom }) {
                 ? "https://i.pinimg.com/736x/b9/3a/1b/b93a1bd3736a4a471b08c1f57606381f.jpg"
                 : "https://www.freeiconspng.com/thumbs/heart-icon/heart-outline-19.png"
             }
+            alt="heart-icon"
           ></img>
 
           <img
@@ -65,6 +85,7 @@ function Card({ title, photo, uName, uEmail, postCom }) {
             id="comment"
             className="icons"
             src="https://static.thenounproject.com/png/638755-200.png"
+            alt="comment-icon"
           ></img>
         </div>
 
@@ -72,7 +93,7 @@ function Card({ title, photo, uName, uEmail, postCom }) {
           <div className="show-comments">
             {comments.map((comment) => (
               <div key={comment.id}>
-                <p>{comment.body}</p>
+                <li>{comment.body}</li>
               </div>
             ))}
           </div>
