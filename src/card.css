@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 body {
-  max-width: 1280px;
+  display: flex;
+  justify-content: center;
 }
 .container {
   display: flex;
@@ -19,36 +20,44 @@ body {
   display: flex;
   gap: 1rem;
 }
-#picture {
-  width: 10rem;
-  border-radius: 50%;
-}
 .profile-photo {
-  position: relative;
-  display: inline-block;
-}
-
-.profile-photo:before {
-  content: attr(data-initial);
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 4rem;
-  height: 4rem;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 4rem;
-  color: white;
+  justify-content: center;
+  background-color: blue;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
 }
-
+.firstLetter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+  font-size: 2rem;
+  background-color: blue;
+  width: 2rem;
+  height: 2rem;
+}
 .right {
   margin-top: -1rem;
 }
-
+.post-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1.2rem;
+  margin-bottom: 2rem;
+}
+.post-text {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 30rem;
+}
+.post-img {
+  width: 25rem;
+}
 .footer {
   display: flex;
   gap: 5rem;
