@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import SelectList from "./SelectList";
 import "./card.css";
 
 function TwitterPost({ postId }) {
@@ -9,6 +10,7 @@ function TwitterPost({ postId }) {
 
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [showList, setShowList] = useState(false);
 
   function handleLike() {
     setIsLiked(true);
@@ -23,6 +25,14 @@ function TwitterPost({ postId }) {
     } else {
       getComment();
       setShowComments(true);
+    }
+  }
+
+  function toggleList() {
+    if (showList) {
+      setShowList(false);
+    } else {
+      setShowList(true);
     }
   }
 
@@ -136,8 +146,9 @@ function TwitterPost({ postId }) {
         </div>
 
         <div className="right">
-          <h1>...</h1>
+          <h1 onClick={toggleList}>...</h1>
         </div>
+        <div>{showList ? <SelectList liked={isLiked} /> : ""}</div>
       </div>
     )
   );

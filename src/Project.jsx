@@ -12,6 +12,7 @@ function Project() {
     const postData = await postResponse.json();
     setPosts(postData);
   };
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -21,7 +22,7 @@ function Project() {
       {posts.map((post) => {
         return (
           <div className="body">
-            <TwitterPost key={post.id} postId={post.id} />;
+            <TwitterPost key={post.id} postId={post.id} />
           </div>
         );
       })}
