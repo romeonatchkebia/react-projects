@@ -61,17 +61,20 @@ body {
 }
 .footer {
   display: flex;
-  gap: 5rem;
+  justify-content: space-around;
   margin-top: 1rem;
   margin-left: 4rem;
 }
-.icons {
-  width: 2rem;
-}
+
 .show-comments {
   margin-top: 2rem;
   line-height: 2rem;
   padding: 1rem;
+}
+.comments {
+  border-bottom: 2px solid grey;
+  text-indent: 1rem;
+  margin-bottom: 1rem;
 }
 .posts {
   border-radius: 2rem;

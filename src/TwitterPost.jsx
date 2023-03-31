@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MdFavoriteBorder, MdFavorite, MdComment } from "react-icons/md";
 import SelectList from "./SelectList";
 import "./card.css";
 
@@ -12,27 +13,12 @@ function TwitterPost({ postId }) {
   const [showComments, setShowComments] = useState(false);
   const [showList, setShowList] = useState(false);
 
-  function handleLike() {
-    setIsLiked(true);
-  }
-  function handleUnlike() {
-    setIsLiked(false);
-  }
-
   function toggleComments() {
     if (showComments) {
       setShowComments(false);
     } else {
       getComment();
       setShowComments(true);
-    }
-  }
-
-  function toggleList() {
-    if (showList) {
-      setShowList(false);
-    } else {
-      setShowList(true);
     }
   }
 
@@ -113,32 +99,24 @@ function TwitterPost({ postId }) {
           </div>
 
           <div className="footer">
-            <img
-              onClick={isLiked ? handleUnlike : handleLike}
-              id="heart"
-              className="icons"
-              src={
-                isLiked
-                  ? "https://i.pinimg.com/736x/b9/3a/1b/b93a1bd3736a4a471b08c1f57606381f.jpg"
-                  : "https://www.freeiconspng.com/thumbs/heart-icon/heart-outline-19.png"
-              }
-              alt="heart-icon"
-            ></img>
+            <div className="like-div" onClick={() => setIsLiked(!isLiked)}>
+              {isLiked ? (
+                <MdFavorite style={{ color: "red" }} />
+              ) : (
+                <MdFavoriteBorder />
+              )}
+            </div>
 
-            <img
-              onClick={toggleComments}
-              id="comment"
-              className="icons"
-              src="https://static.thenounproject.com/png/638755-200.png"
-              alt="comment-icon"
-            ></img>
+            <div className="comment-div" onClick={toggleComments} id="comment">
+              <MdComment />
+            </div>
           </div>
 
           {showComments && (
             <div className="show-comments">
               {comments.map((comment) => (
                 <div key={comment.id}>
-                  <li>{comment.body}</li>
+                  <div className="comments">{comment.body}</div>
                 </div>
               ))}
             </div>
@@ -146,7 +124,7 @@ function TwitterPost({ postId }) {
         </div>
 
         <div className="right">
-          <h1 onClick={toggleList}>...</h1>
+          <h1 onClick={() => setShowList(!showList)}>...</h1>
         </div>
         <div>{showList ? <SelectList liked={isLiked} /> : ""}</div>
       </div>
